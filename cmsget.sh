@@ -1,11 +1,18 @@
 apt-get update -y
 apt-get install apache2 -y 
-apt-get install mysql-server php5-mysql -y
+apt-get install php5-mysql -y
 mysql_install_db -y
 mysql_secure_installation -y
 apt-get install php5 libapache2-mod-php5 php5-mcrypt php5-gd php5-cli php5-common -y
 apt-get install php5-curl php5-dbg  php5-xmlrpc php5-fpm php-apc php-pear php5-imap -y
 apt-get install php5-pspell php5-dev -y 
+
+#mysql
+export DEBIAN_FRONTEND=noninteractive
+sudo -E apt-get -q -y install mysql-server
+
+PASSWORD=`date +%s|sha256sum|base64|head -c 12`
+mysqladmin -u root password  $PASSWORD
 
 #mail
 apt-get install php-pear 
@@ -19,24 +26,8 @@ debconf-set-selections <<< "postfix postfix/main_mailer_type string 'Internet Si
 apt-get install -y postfix
 
 
-
-function set_php_ini {
-
-	#mail 
-	sed -e '/^[^;]*sendmail_path/s/=.*$/= \/usr\/bin\/msmtp -t/' /etc/php5/apache2/php.ini
-
-	#max file upload 
-	upload_max_filesize=240M
-	post_max_size=50M
-	max_execution_time=100
-	max_input_time=223
-
-	for key in upload_max_filesize post_max_size max_execution_time max_input_time
-	do
-	 sed -i "s/^\($key\).*/\1 $(eval echo \${$key})/" /etc/php5/apache2/php.ini
-	done
-}
-
-set_php_ini
-
 service apache2 restart
+/etc/init.d/mysql restart
+
+echo $PASSWORD
+
