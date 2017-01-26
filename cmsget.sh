@@ -7,10 +7,15 @@ apt-get install php5 libapache2-mod-php5 php5-mcrypt php5-gd php5-cli php5-commo
 apt-get install php5-curl php5-dbg  php5-xmlrpc php5-fpm php-apc php-pear php5-imap -y
 apt-get install php5-pspell php5-dev -y 
 
-sed -e '/^[^;]*sendmail_path/s/=.*$/= \/usr\/bin\/msmtp -t/' /etc/php5/apache2/php.ini
+
 
 
 set_php_ini(){
+
+	#mail 
+	sed -e '/^[^;]*sendmail_path/s/=.*$/= \/usr\/bin\/msmtp -t/' /etc/php5/apache2/php.ini
+
+	#max file upload 
 	upload_max_filesize=240M
 	post_max_size=50M
 	max_execution_time=100
@@ -18,7 +23,7 @@ set_php_ini(){
 
 	for key in upload_max_filesize post_max_size max_execution_time max_input_time
 	do
-	 sed -i "s/^\($key\).*/\1 $(eval echo \${$key})/" php.ini
+	 sed -i "s/^\($key\).*/\1 $(eval echo \${$key})/" /etc/php5/apache2/php.ini
 	done
 }
 
