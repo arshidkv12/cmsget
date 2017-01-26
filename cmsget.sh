@@ -12,6 +12,7 @@ export DEBIAN_FRONTEND=noninteractive
 sudo -E apt-get -q -y install mysql-server
 
 PASSWORD=`date +%s|sha256sum|base64|head -c 12`
+USERNAME=`date +%s|sha256sum|base64|head -c 7`
 mysqladmin -u root password  $PASSWORD
 
 #mail
@@ -30,14 +31,14 @@ service apache2 restart
 /etc/init.d/mysql restart
 
 mysql -uroot -p$PASSWORD <<MYSQL_SCRIPT
-CREATE DATABASE $1;
-CREATE USER '$1'@'localhost' IDENTIFIED BY '$PASS';
-GRANT ALL PRIVILEGES ON $1.* TO '$1'@'localhost';
+CREATE DATABASE $USERNAME;
+CREATE USER '$USERNAME'@'localhost' IDENTIFIED BY '$PASSWORD';
+GRANT ALL PRIVILEGES ON $USERNAME.* TO '$USERNAME'@'localhost';
 FLUSH PRIVILEGES;
 MYSQL_SCRIPT
 
 echo "MySQL user created."
-echo "Username:   $1"
+echo "Username:   $USERNAME"
  
 
 echo "============================================"
@@ -50,16 +51,16 @@ tar -zxvf latest.tar.gz
 #change dir to wordpress
 cd wordpress
 #copy file to parent dir
-cp -rf . ..
+cp -rf . /var/www/html
 #move back to parent dir
-cd ..
+cd /var/www/html
 #remove files from wordpress folder
-rm -R wordpress
+#rm -R wordpress
 #create wp config
 cp wp-config-sample.php wp-config.php
 #set database details with perl find and replace
-perl -pi -e "s/database_name_here/$1/g" wp-config.php
-perl -pi -e "s/username_here/$1/g" wp-config.php
+perl -pi -e "s/database_name_here/$USERNAME/g" wp-config.php
+perl -pi -e "s/username_here/$USERNAME/g" wp-config.php
 perl -pi -e "s/password_here/$PASSWORD/g" wp-config.php
 
 #set WP salts
