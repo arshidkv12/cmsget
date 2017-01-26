@@ -7,6 +7,12 @@ apt-get install php5 libapache2-mod-php5 php5-mcrypt php5-gd php5-cli php5-commo
 apt-get install php5-curl php5-dbg  php5-xmlrpc php5-fpm php-apc php-pear php5-imap -y
 apt-get install php5-pspell php5-dev -y 
 
+#mail
+apt-get install php-pear 
+pear install mail 
+pear install Net_SMTP 
+pear install Auth_SASL 
+pear install mail_mime
 
 
 
