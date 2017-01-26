@@ -6,3 +6,22 @@ mysql_secure_installation -y
 apt-get install php5 libapache2-mod-php5 php5-mcrypt php5-gd php5-cli php5-common -y
 apt-get install php5-curl php5-dbg  php5-xmlrpc php5-fpm php-apc php-pear php5-imap -y
 apt-get install php5-pspell php5-dev -y 
+
+sed -e '/^[^;]*sendmail_path/s/=.*$/= \/usr\/bin\/msmtp -t/' /etc/php5/apache2/php.ini
+
+
+set_php_ini(){
+	upload_max_filesize=240M
+	post_max_size=50M
+	max_execution_time=100
+	max_input_time=223
+
+	for key in upload_max_filesize post_max_size max_execution_time max_input_time
+	do
+	 sed -i "s/^\($key\).*/\1 $(eval echo \${$key})/" php.ini
+	done
+}
+
+set_php_ini
+
+service apache2 restart
