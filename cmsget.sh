@@ -10,7 +10,7 @@ apt-get install php5-pspell php5-dev -y
 
 
 
-set_php_ini(){
+function set_php_ini {
 
 	#mail 
 	sed -e '/^[^;]*sendmail_path/s/=.*$/= \/usr\/bin\/msmtp -t/' /etc/php5/apache2/php.ini
