@@ -34,9 +34,11 @@ pear install Net_SMTP
 pear install Auth_SASL 
 pear install mail_mime
 
-debconf-set-selections <<< "postfix postfix/mailname string localhost"
-debconf-set-selections <<< "postfix postfix/main_mailer_type string 'Internet Site'"
-apt-get install -y postfix
+if ! package_exists postfix ; then
+    debconf-set-selections <<< "postfix postfix/mailname string localhost"
+    debconf-set-selections <<< "postfix postfix/main_mailer_type string 'Internet Site'"
+    apt-get install -y postfix
+fi
 
 
 service apache2 restart
@@ -96,3 +98,8 @@ echo "========================="
 echo "Installation is complete."
 echo "========================="
 
+
+#package function 
+function package_exists() {
+    return dpkg -l "$1" &> /dev/null
+}
