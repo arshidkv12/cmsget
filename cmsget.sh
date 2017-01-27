@@ -7,11 +7,12 @@ apt-get install php5 libapache2-mod-php5 php5-mcrypt php5-gd php5-cli php5-commo
 apt-get install php5-curl php5-dbg  php5-xmlrpc php5-fpm php-apc php-pear php5-imap -y
 apt-get install php5-pspell php5-dev -y 
 
+PASSWORD=`date +%s|sha256sum|base64|head -c 12`
+USERNAME=`date +%s|sha256sum|base64|head -c 7`
+  
 #mysql
 export DEBIAN_FRONTEND=noninteractive
 if  -E apt-get -q -y install mysql-server; then
-  PASSWORD=`date +%s|sha256sum|base64|head -c 12`
-  USERNAME=`date +%s|sha256sum|base64|head -c 7`
   mysqladmin -u root password  $PASSWORD
 fi
 
