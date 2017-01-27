@@ -42,7 +42,7 @@ fi
 
 
 service apache2 restart
-/etc/init.d/mysql restart
+#/etc/init.d/mysql restart
 
 mysql -uroot -p$PASSWORD <<MYSQL_SCRIPT
 CREATE DATABASE $USERNAME;
