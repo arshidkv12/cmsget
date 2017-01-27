@@ -5,6 +5,10 @@ function package_exists() {
     return dpkg -l "$1" &> /dev/null
 }
 
+if [  -f index.php ]; then
+    echo "Already exist index.php"
+    exit
+fi
 
 apt-get update -y
 apt-get install apache2 -y 
