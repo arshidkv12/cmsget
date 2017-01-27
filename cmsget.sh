@@ -38,7 +38,7 @@ pear install Auth_SASL
 pear install mail_mime
 
 if ! package_exists postfix ; then
-    debconf-set-selections <<< "postfix postfix/mailname string localhost"
+    debconf-set-selections <<< "postfix postfix/mailname string 'localhost'"
     debconf-set-selections <<< "postfix postfix/main_mailer_type string 'Internet Site'"
     apt-get install -y postfix
 fi
