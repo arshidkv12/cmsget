@@ -6,7 +6,7 @@ function package_exists() {
 }
 
 if [  -f /var/www/html/index.php ]; then
-    echo "Already exist index.php"
+    echo "Already exist /var/www/html/index.php"
     exit
 fi
 
