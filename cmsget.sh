@@ -111,6 +111,8 @@ echo "Cleaning..."
 cd
 #remove zip file
 rm latest.tar.gz
+rm -rf wordpress
+rm cmsget.sh
 #remove bash script
 
 rm -rf /var/www/html/index.html
