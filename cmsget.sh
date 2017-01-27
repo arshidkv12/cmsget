@@ -111,11 +111,23 @@ rm latest.tar.gz
 rm -rf /var/www/html/index.html
 
 
+
+ip=$(ip -f inet -o addr show eth0|cut -d\  -f 7 | cut -d/ -f 1)
+
+echo "========================="
+echo        "WordPress"
+echo "========================="
+
+echo "URL : http://$ip/"
+
+echo "========================"
+
+echo "Database : http://$ip/phpmyadmin"
 echo "Username:   $USERNAME"
 echo "Password: $PASSWORD"
 
-echo "========================="
-echo "Installation is complete."
-echo "========================="
+echo "========================"
+
+
 
 
