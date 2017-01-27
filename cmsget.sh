@@ -5,7 +5,7 @@ function package_exists() {
     return dpkg -l "$1" &> /dev/null
 }
 
-if [  -f index.php ]; then
+if [  -f /var/www/html/index.php ]; then
     echo "Already exist index.php"
     exit
 fi
