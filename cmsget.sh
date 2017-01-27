@@ -20,7 +20,7 @@ USERNAME=`date +%s|sha256sum|base64|head -c 7`
   
 #mysql
 export DEBIAN_FRONTEND=noninteractive
-if  -E apt-get -q -y install mysql-server; then
+if  apt-get -q -y install mysql-server; then
   mysqladmin -u root password  $PASSWORD
 fi
 
