@@ -56,6 +56,7 @@ echo "MySQL user created."
 echo "Username:   $USERNAME"
  
 
+
 echo "============================================"
 echo "A robot is now installing WordPress for you."
 echo "============================================"
@@ -95,6 +96,10 @@ echo "Cleaning..."
 #remove zip file
 rm latest.tar.gz
 #remove bash script
+
+echo "Username:   $USERNAME"
+echo "Password: $PASSWORD"
+
 echo "========================="
 echo "Installation is complete."
 echo "========================="
