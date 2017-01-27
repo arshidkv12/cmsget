@@ -107,6 +107,9 @@ echo "Cleaning..."
 rm latest.tar.gz
 #remove bash script
 
+rm -rf /var/www/html/index.html
+
+
 echo "Username:   $USERNAME"
 echo "Password: $PASSWORD"
 
