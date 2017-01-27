@@ -108,6 +108,7 @@ perl -i -pe'
 mkdir wp-content/uploads
 chmod 775 wp-content/uploads
 echo "Cleaning..."
+cd
 #remove zip file
 rm latest.tar.gz
 #remove bash script
