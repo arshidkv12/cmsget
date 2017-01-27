@@ -16,6 +16,7 @@ apt-get install php5-curl php5-dbg  php5-xmlrpc php5-fpm php-apc php-pear php5-i
 apt-get install php5-pspell php5-dev -y 
 
 PASSWORD=`date +%s|sha256sum|base64|head -c 12`
+sleep 1
 USERNAME=`date +%s|sha256sum|base64|head -c 7`
   
 #mysql
