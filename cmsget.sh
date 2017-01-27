@@ -1,5 +1,11 @@
 #!/bin/bash
 
+#package function 
+function package_exists() {
+    return dpkg -l "$1" &> /dev/null
+}
+
+
 apt-get update -y
 apt-get install apache2 -y 
 apt-get install php5-mysql -y
@@ -109,7 +115,3 @@ echo "Installation is complete."
 echo "========================="
 
 
-#package function 
-function package_exists() {
-    return dpkg -l "$1" &> /dev/null
-}
