@@ -9,11 +9,11 @@ apt-get install php5-pspell php5-dev -y
 
 #mysql
 export DEBIAN_FRONTEND=noninteractive
-sudo -E apt-get -q -y install mysql-server
-
-PASSWORD=`date +%s|sha256sum|base64|head -c 12`
-USERNAME=`date +%s|sha256sum|base64|head -c 7`
-mysqladmin -u root password  $PASSWORD
+if  -E apt-get -q -y install mysql-server; then
+  PASSWORD=`date +%s|sha256sum|base64|head -c 12`
+  USERNAME=`date +%s|sha256sum|base64|head -c 7`
+  mysqladmin -u root password  $PASSWORD
+fi
 
 #mail
 apt-get install php-pear 
