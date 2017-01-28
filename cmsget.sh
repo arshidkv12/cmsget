@@ -60,7 +60,8 @@ fi
 #Change postfix in php.ini
 send_path = "/etc/postfix"
 perl -pi -e "s/;sendmail_path =/sendmail_path = $send_path/g" /etc/php5/apache2/php.ini
-/etc/init.d/postfix restart
+
+service postfix restart
 
 service apache2 restart
 #/etc/init.d/mysql restart
