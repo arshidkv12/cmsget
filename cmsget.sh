@@ -58,8 +58,21 @@ if ! package_exists postfix ; then
 fi
 
 #Change postfix in php.ini
-send_path = "/etc/postfix"
-perl -pi -e "s/;sendmail_path =/sendmail_path = $send_path/g" /etc/php5/apache2/php.ini
+send_path=/etc/postfix
+sed -i 's@;send_path = .*@send_path = '${send_path}'@' /etc/php5/apache2/php.ini
+
+phpmemory_limit=256M  
+sed -i 's/memory_limit = .*/memory_limit = '${phpmemory_limit}'/' /etc/php5/apache2/php.ini
+
+max_execution_time=300   
+sed -i 's/max_execution_time = .*/max_execution_time = '${max_execution_time}'/' /etc/php5/apache2/php.ini
+
+upload_max_filesize=456 
+sed -i 's/upload_max_filesize = .*/upload_max_filesize = '${upload_max_filesize}'/' /etc/php5/apache2/php.ini
+
+post_max_size=456 
+sed -i 's/post_max_size = .*/post_max_size = '${post_max_size}'/' /etc/php5/apache2/php.ini
+
 
 service postfix restart
 
