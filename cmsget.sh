@@ -59,7 +59,8 @@ fi
 
 #Change postfix in php.ini
 send_path=/etc/postfix
-sed -i 's@;send_path = .*@send_path = '${send_path}'@' /etc/php5/apache2/php.ini
+sed -i 's@;sendmail_path =@send_path = '${send_path}'@' /etc/php5/apache2/php.ini
+
 
 phpmemory_limit=256M  
 sed -i 's/memory_limit = .*/memory_limit = '${phpmemory_limit}'/' /etc/php5/apache2/php.ini
