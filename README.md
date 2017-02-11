@@ -4,7 +4,7 @@ License : GPL
 
 Signle click WordPress installation for cloud or vps.
 
-Coonect your server by ssh then enter following comment.
+Conect your server by ssh then enter following comment.
 
 Now your WordPress is installed.
 
