@@ -2,6 +2,8 @@
 
 License : GPL 
 
+Tutorial  : https://www.youtube.com/watch?v=cQphWXJi2nU 
+
 Signle click WordPress installation for cloud or vps.
 
 Conect your server by ssh then enter following comment.
