@@ -48,8 +48,6 @@ if ! package_exists mysql-server ; then
     echo "mysql-server mysql-server/root_password_again password $PASSWORD" |  debconf-set-selections
     
     DEBIAN_FRONTEND=noninteractive apt-get -q -y install mysql-server-5.7
-    mysqld --initialize
-    mysqladmin -u root password  $PASSWORD
 
     mysql_secure_installation 
 
