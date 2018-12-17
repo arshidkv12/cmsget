@@ -11,7 +11,7 @@ if [  -f /var/www/html/index.php ]; then
     exit
 fi
 #repository 
-apt-get install software-properties-common python-software-properties
+apt-get install software-properties-common python-software-properties -y
 add-apt-repository -y ppa:ondrej/php
 
 apt-get update -y
