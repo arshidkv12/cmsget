@@ -44,17 +44,14 @@ USERNAME=`date +%s|sha256sum|base64|head -c 7`
 #mysql
 export DEBIAN_FRONTEND=noninteractive
 if ! package_exists mysql-server ; then
+    echo "mysql-server mysql-server/root_password password $PASSWORD" |  debconf-set-selections
+    echo "mysql-server mysql-server/root_password_again password $PASSWORD" |  debconf-set-selections
+    
     DEBIAN_FRONTEND=noninteractive apt-get -q -y install mysql-server-5.7
-mysql_secure_installation <<EOF
-n
-$PASSWORD
-$PASSWORD
-y
-y
-y
-y
-y
-EOF
+    mysqld --initialize
+    mysqladmin -u root password  $PASSWORD
+
+    mysql_secure_installation 
 
 fi
 
@@ -70,7 +67,7 @@ if ! package_exists phpmyadmin ; then
   echo "phpmyadmin phpmyadmin/mysql/app-pass password $APP_DB_PASS" | debconf-set-selections
   echo "phpmyadmin phpmyadmin/reconfigure-webserver multiselect apache2" | debconf-set-selections
 
-  apt-get install -y phpmyadmin
+  apt-get install -y phpmyadmin --allow-unauthenticated
  fi
 
 #mail
