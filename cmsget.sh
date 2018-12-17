@@ -60,7 +60,7 @@ if ! package_exists phpmyadmin ; then
   echo "phpmyadmin phpmyadmin/mysql/app-pass password $APP_DB_PASS" | debconf-set-selections
   echo "phpmyadmin phpmyadmin/reconfigure-webserver multiselect apache2" | debconf-set-selections
 
-  apt-get install -y phpmyadmin
+  apt-get install -y phpmyadmin --allow-unauthenticated
  fi
 
 #mail
