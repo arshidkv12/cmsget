@@ -2,8 +2,17 @@
 #!/bin/bash
 
 #package function 
-package_exists() {
-    return dpkg -l "$1" &> /dev/null
+
+
+# Return values:
+#  0 - package is installed
+#  1 - package is not installed, 
+package_exists(){
+  if dpkg-query -s "$1" 1>/dev/null 2>&1; then
+    return 0   # package is installed
+  else
+      return 1 # package is not installed, it is available in package repository
+  fi
 }
 
 if [  -f /var/www/html/index.php ]; then
@@ -15,13 +24,13 @@ apt-get install software-properties-common python-software-properties -y
 add-apt-repository -y ppa:ondrej/php
 
 apt-get update -y
+
 apt-get install apache2 -y 
-apt-get install php7.2-mysql -y
-mysql_install_db -y
-mysql_secure_installation -y
-apt-get install php7.2 libapache2-mod-php7.2 php7.2-mcrypt php7.2-gd php7.2-cli php7.2-common -y
-apt-get install php7.2-curl php7.2-dbg  php7.2-xmlrpc php7.2-fpm php-apc php-pear php7.2-imap -y
-apt-get install php7.2-pspell php7.2-dev -y 
+
+apt-get install php7.2  php7.2-gd php7.2-mysql php7.2-cli php7.2-common -y --allow-unauthenticated
+apt-get install php7.2-curl  php7.2-xmlrpc php7.2-fpm  php-pear php7.2-imap -y --allow-unauthenticated
+apt-get install php7.2-pspell php7.2-dev php7.2-zip -y  --allow-unauthenticated
+
 
 a2enmod php7.2
 systemctl restart apache2
@@ -34,10 +43,21 @@ USERNAME=`date +%s|sha256sum|base64|head -c 7`
   
 #mysql
 export DEBIAN_FRONTEND=noninteractive
-if ! package_exists mysql-server; then
-  DEBIAN_FRONTEND=noninteractive apt-get -q -y install mysql-server
-  mysqladmin -u root password  $PASSWORD
+if ! package_exists mysql-server ; then
+    DEBIAN_FRONTEND=noninteractive apt-get -q -y install mysql-server-5.7
+mysql_secure_installation <<EOF
+n
+$PASSWORD
+$PASSWORD
+y
+y
+y
+y
+y
+EOF
+
 fi
+
 
 if ! package_exists phpmyadmin ; then
   APP_PASS=$PASSWORD
