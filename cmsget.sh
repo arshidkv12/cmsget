@@ -28,7 +28,7 @@ USERNAME=`date +%s|sha256sum|base64|head -c 7`
 #mysql
 export DEBIAN_FRONTEND=noninteractive
 if ! package_exists mysql-server; then
-  apt-get -q -y install mysql-server
+  DEBIAN_FRONTEND=noninteractive apt-get -q -y install mysql-server
   mysqladmin -u root password  $PASSWORD
 fi
 
@@ -54,7 +54,7 @@ pear install Auth_SASL
 pear install mail_mime
 
 if ! package_exists postfix ; then
-    apt-get install -y postfix
+    DEBIAN_FRONTEND=noninteractive apt-get install -y postfix
 fi
 
 #Change postfix in php.ini
