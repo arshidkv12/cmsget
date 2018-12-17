@@ -54,7 +54,7 @@ if ! package_exists phpmyadmin ; then
  fi
 
 #mail
-apt-get install php-pear 
+apt-get install php-pear -y
 pear install mail 
 pear install Net_SMTP 
 pear install Auth_SASL 
