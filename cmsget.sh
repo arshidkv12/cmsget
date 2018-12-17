@@ -2,7 +2,7 @@
 #!/bin/bash
 
 #package function 
-function package_exists() {
+package_exists() {
     return dpkg -l "$1" &> /dev/null
 }
 
