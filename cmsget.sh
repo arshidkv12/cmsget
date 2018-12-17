@@ -10,6 +10,9 @@ if [  -f /var/www/html/index.php ]; then
     echo "Already exist /var/www/html/index.php"
     exit
 fi
+#repository 
+apt-get install software-properties-common python-software-properties
+add-apt-repository -y ppa:ondrej/php
 
 apt-get update -y
 apt-get install apache2 -y 
@@ -19,8 +22,12 @@ mysql_secure_installation -y
 apt-get install php7.2 libapache2-mod-php7.2 php7.2-mcrypt php7.2-gd php7.2-cli php7.2-common -y
 apt-get install php7.2-curl php7.2-dbg  php7.2-xmlrpc php7.2-fpm php-apc php-pear php7.2-imap -y
 apt-get install php7.2-pspell php7.2-dev -y 
-DATE=$(date +%s)
 
+a2enmod php7.2
+systemctl restart apache2
+
+
+DATE=$(date +%s)
 PASSWORD=$(echo $RANDOM$DATE|sha256sum|base64|head -c 12)
 sleep 1
 USERNAME=`date +%s|sha256sum|base64|head -c 7`
