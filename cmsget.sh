@@ -13,12 +13,12 @@ fi
 
 apt-get update -y
 apt-get install apache2 -y 
-apt-get install php5-mysql -y
+apt-get install php7.2-mysql -y
 mysql_install_db -y
 mysql_secure_installation -y
-apt-get install php5 libapache2-mod-php5 php5-mcrypt php5-gd php5-cli php5-common -y
-apt-get install php5-curl php5-dbg  php5-xmlrpc php5-fpm php-apc php-pear php5-imap -y
-apt-get install php5-pspell php5-dev -y 
+apt-get install php7.2 libapache2-mod-php7.2 php7.2-mcrypt php7.2-gd php7.2-cli php7.2-common -y
+apt-get install php7.2-curl php7.2-dbg  php7.2-xmlrpc php7.2-fpm php-apc php-pear php7.2-imap -y
+apt-get install php7.2-pspell php7.2-dev -y 
 DATE=$(date +%s)
 
 PASSWORD=$(echo $RANDOM$DATE|sha256sum|base64|head -c 12)
@@ -54,27 +54,25 @@ pear install Auth_SASL
 pear install mail_mime
 
 if ! package_exists postfix ; then
-    debconf-set-selections <<< "postfix postfix/mailname string 'localhost'"
-    debconf-set-selections <<< "postfix postfix/main_mailer_type string 'Internet Site'"
     apt-get install -y postfix
 fi
 
 #Change postfix in php.ini
 send_path=/etc/postfix
-sed -i 's@;sendmail_path =@send_path = '${send_path}'@' /etc/php5/apache2/php.ini
+sed -i 's@;sendmail_path =@send_path = '${send_path}'@' /etc/php7.2/apache2/php.ini
 
 
 phpmemory_limit=256M  
-sed -i 's/memory_limit = .*/memory_limit = '${phpmemory_limit}'/' /etc/php5/apache2/php.ini
+sed -i 's/memory_limit = .*/memory_limit = '${phpmemory_limit}'/' /etc/php7.2/apache2/php.ini
 
 max_execution_time=300   
-sed -i 's/max_execution_time = .*/max_execution_time = '${max_execution_time}'/' /etc/php5/apache2/php.ini
+sed -i 's/max_execution_time = .*/max_execution_time = '${max_execution_time}'/' /etc/php7.2/apache2/php.ini
 
 upload_max_filesize=456 
-sed -i 's/upload_max_filesize = .*/upload_max_filesize = '${upload_max_filesize}'/' /etc/php5/apache2/php.ini
+sed -i 's/upload_max_filesize = .*/upload_max_filesize = '${upload_max_filesize}'/' /etc/php7.2/apache2/php.ini
 
 post_max_size=456 
-sed -i 's/post_max_size = .*/post_max_size = '${post_max_size}'/' /etc/php5/apache2/php.ini
+sed -i 's/post_max_size = .*/post_max_size = '${post_max_size}'/' /etc/php7.2/apache2/php.ini
 
 
 service postfix restart
