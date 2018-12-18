@@ -17,4 +17,4 @@ Supported OS: Debian based OS
 
 Premium support: support@ciphercoin.com
 Any type of php or WordPress bugs, SSL installation etc.
-ciphercoin.com
+https://ciphercoin.com
