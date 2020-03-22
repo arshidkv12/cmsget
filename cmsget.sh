@@ -27,12 +27,12 @@ apt-get update -y
 
 apt-get install apache2 -y 
 
-apt-get install php7.2  php7.2-gd php7.2-mysql php7.2-cli php7.2-common -y --allow-unauthenticated
-apt-get install php7.2-curl  php7.2-xmlrpc php7.2-fpm  php-pear php7.2-imap -y --allow-unauthenticated
-apt-get install php7.2-pspell php7.2-dev php7.2-zip -y  --allow-unauthenticated
+apt-get install php libapache2-mod-php php-gd php-mysql php-cli php-common -y --allow-unauthenticated
+apt-get install php-curl  php-xmlrpc php-fpm  php-pear php-imap -y --allow-unauthenticated
+apt-get install php-pspell php-dev php-zip -y  --allow-unauthenticated
 
 
-a2enmod php7.2
+a2enmod php
 systemctl restart apache2
 
 
@@ -76,20 +76,20 @@ fi
 
 #Change postfix in php.ini
 send_path=/etc/postfix
-sed -i 's@;sendmail_path =@send_path = '${send_path}'@' /etc/php7.2/apache2/php.ini
+sed -i 's@;sendmail_path =@send_path = '${send_path}'@' /etc/php/apache2/php.ini
 
 
 phpmemory_limit=256M  
-sed -i 's/memory_limit = .*/memory_limit = '${phpmemory_limit}'/' /etc/php7.2/apache2/php.ini
+sed -i 's/memory_limit = .*/memory_limit = '${phpmemory_limit}'/' /etc/php/apache2/php.ini
 
 max_execution_time=300   
-sed -i 's/max_execution_time = .*/max_execution_time = '${max_execution_time}'/' /etc/php7.2/apache2/php.ini
+sed -i 's/max_execution_time = .*/max_execution_time = '${max_execution_time}'/' /etc/php/apache2/php.ini
 
 upload_max_filesize=456 
-sed -i 's/upload_max_filesize = .*/upload_max_filesize = '${upload_max_filesize}'/' /etc/php7.2/apache2/php.ini
+sed -i 's/upload_max_filesize = .*/upload_max_filesize = '${upload_max_filesize}'/' /etc/php/apache2/php.ini
 
 post_max_size=456 
-sed -i 's/post_max_size = .*/post_max_size = '${post_max_size}'/' /etc/php7.2/apache2/php.ini
+sed -i 's/post_max_size = .*/post_max_size = '${post_max_size}'/' /etc/php/apache2/php.ini
 
 
 service postfix restart
